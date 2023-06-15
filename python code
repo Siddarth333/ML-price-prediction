@@ -1,0 +1,67 @@
+# ML ASSESSMENT
+# Predicting the target->'price of house' with feature->'size of house'
+
+
+# import the libraries
+import numpy
+import pandas
+import matplotlib.pyplot as vis
+from sklearn.linear_model import LinearRegression
+
+
+# training data set train the model
+tab = {
+  "SIZE(X-feature)": [587,496,765,456,530,555,498,511,537],
+  "PRICE(Y-target)": [33800,29700,39223,27908,34576,37867,28647,31799,35768]
+}
+asd = pd.DataFrame(tab)
+asd
+
+
+# visualisation
+vis.scatter(ip,op,marker='*')
+vis.title('house price prediction')
+vis.xlabel('size of house')
+vis.ylabel('price of house')
+
+
+# here ip is the independent variable and op is dependent variable
+ip=asd['SIZE(X-feature)']
+op=asd['PRICE(Y-target)']
+
+# transforming size column(from table) to matrix
+ip_m=ip.values.reshape(-1,1)
+
+# regression
+func=LinearRegression()
+func.fit(ip_m,op)
+
+
+# final target visualisation with regression:
+n=len(ip)
+y=[]
+x = numpy.asarray(ip_m).ravel()
+for i in x:
+    y.append(func.predict([[i]]))
+#convert matrix to array
+vis.plot(x,y,label='Prediction')
+
+# Set the title
+plt.title("Housing Prices")
+# Set the y-axis label
+plt.ylabel('Price')
+# Set the x-axis label
+plt.xlabel('Size')
+plt.legend()
+plt.show()
+
+
+# predicting the price for size '500'
+k=int(input("size of the house: "))
+print("price of the house:", func.predict([[k]]))
+
+size of the house: 599
+price of the house: [35038.08728129]
+
+
+
